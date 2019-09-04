@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 import converter as CVT 
 
-HEIGHT = 250
+HEIGHT = 400
 WIDTH = 400
 
 maker = CVT.Converter()
@@ -67,36 +67,51 @@ GUI code
 '''
 
 root = tk.Tk()
+
 #title the window
 root.title("PyMediaFileConverter")
+
 #create canvas
 canvas = tk.Canvas(root, height=HEIGHT,width=WIDTH)
 canvas.pack()
 
-frameBtn = tk.Frame(root,heigh = 15,width = 350,bg="white")
-frameBtn.place(relx = 0.1,rely=0.1,relwidth= 0.8,relheight=0.1,)
+#frame
+frameBrowse = tk.Frame(root,heigh = 15,width = 15,bg="white")
+frameBrowse.place(relx = 0.4,rely=0.1,relwidth= 0.2,relheight=0.1)
 
 frameEntry = tk.Frame(root,heigh = 10,width =350 ,bg="white")
-frameEntry.place(relx = 0.1,rely=0.5,relwidth= 0.8,relheight=0.05)
+frameEntry.place(relx = 0.1,rely=0.7,relwidth= 0.7,relheight=0.05)
+
+frameDetails = tk.Frame(root,height= 100,width=100,bg="blue")
+frameDetails.place(relx = 0.1,rely=0.2,relwidth= 0.8,relheight=0.3)
+
+frameCreate = tk.Frame(root,heigh = 15,width = 350,bg="white")
+frameCreate.place(relx = 0.1,rely=0.79,relwidth= 0.8,relheight=0.1)
 
 #create button
-btnCreateGif = tk.Button(frameBtn,text="Create Gif",bg="white",fg="black",height="2",width="8",command= lambda : createGif(maker))
-btnCreateGif.pack(fill="y",side="left")
+btnCreateGif = tk.Button(frameCreate,text="Create Gif",bg="white",fg="black",height="2",width="8",command= lambda : createGif(maker))
+btnCreateGif.pack(fill="both",side="left")
 
-btnBrowseFile = tk.Button(frameBtn,text="Browse File",bg="white",fg="black",height="2",width="8",command=openFileDialog)
-btnBrowseFile.pack(fill="y",side="left",padx=1)
+btnBrowseFile = tk.Button(frameBrowse,text="Browse File",bg="white",fg="black",command=openFileDialog)
+btnBrowseFile.pack(fill="both",side="left",expand=1)
 
-labelFolder = tk.Label(root)
+# btnprintMetadata = tk.Button(root,text="print Metadata",bg="white",fg="black",height="2",width="8",command= lambda : printMetaData(maker))
+# btnprintMetadata.pack()
+
+#label
+labelFolder = tk.Label(frameDetails)
 labelFolder.pack()
 
 labelTargetFormat = tk.Label(root,text="Target File Format")
-labelTargetFormat.place(relx = 0.1,rely=0.45,relwidth= 0.25,relheight=0.05)
+labelTargetFormat.place(relx = 0.1,rely=0.6,relwidth= 0.25,relheight=0.05)
 
-btnprintMetadata = tk.Button(root,text="print Metadata",bg="white",fg="black",height="2",width="8",command= lambda : printMetaData(maker))
-btnprintMetadata.pack()
+'''
+TO DO : add label for details(fps,duration,size,fileformat, inputpath)
+'''
 
-entryTargetFile = tk.Entry(frameEntry,width = 350)
-entryTargetFile.pack()
+#entry
+entryTargetFile = tk.Entry(frameEntry,width = 350,font=20)
+entryTargetFile.pack(fill="both", expand=1)
 
 #create label
 root.mainloop()
