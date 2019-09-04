@@ -80,17 +80,17 @@ frameBrowse = tk.Frame(root,heigh = 15,width = 15,bg="white")
 frameBrowse.place(relx = 0.4,rely=0.1,relwidth= 0.2,relheight=0.1)
 
 frameEntry = tk.Frame(root,heigh = 10,width =350 ,bg="white")
-frameEntry.place(relx = 0.1,rely=0.7,relwidth= 0.7,relheight=0.05)
+frameEntry.place(relx = 0.1,rely=0.7,relwidth= 0.8,relheight=0.05)
 
 frameDetails = tk.Frame(root,height= 100,width=100,bg="blue")
 frameDetails.place(relx = 0.1,rely=0.2,relwidth= 0.8,relheight=0.3)
 
 frameCreate = tk.Frame(root,heigh = 15,width = 350,bg="white")
-frameCreate.place(relx = 0.1,rely=0.79,relwidth= 0.8,relheight=0.1)
+frameCreate.place(relx = 0.4,rely=0.79,relwidth= 0.2,relheight=0.1)
 
 #create button
 btnCreateGif = tk.Button(frameCreate,text="Create Gif",bg="white",fg="black",height="2",width="8",command= lambda : createGif(maker))
-btnCreateGif.pack(fill="both",side="left")
+btnCreateGif.pack(fill="both",side="left",expand=1)
 
 btnBrowseFile = tk.Button(frameBrowse,text="Browse File",bg="white",fg="black",command=openFileDialog)
 btnBrowseFile.pack(fill="both",side="left",expand=1)
