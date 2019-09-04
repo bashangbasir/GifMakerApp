@@ -36,8 +36,6 @@ class Converter:
         reader.close()
         return x_size, y_size
 
-
-
 '''
 def main():
     cv = Converter()

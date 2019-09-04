@@ -9,7 +9,11 @@ maker = CVT.Converter()
 
 def openFileDialog():
     filename = filedialog.askopenfile(initialdir="/",title="select a file",filetypes=[("All file","*.*")])
-    labelFolder.config(text=filename.name)
+    
+    try:
+        labelFolder.config(text=filename.name)
+    except:
+        print("Close file dialog without choosing file!!")
 
 def createGif(maker):
     inputPath = getInputPath()
@@ -17,8 +21,10 @@ def createGif(maker):
 
     if inputPath == "" :
         print("No video files selected!!")
-    elif targetFormat == "":
-        print("Insert target format")
+        
+        if targetFormat == "":
+            print("Insert target format")
+
     else:
         maker.convertToTargetFormat(inputPath,targetFormat)
 
@@ -31,6 +37,7 @@ def getMetaDataDetails(maker):
         fps = maker.getFps(inputPath)
         duration = maker.getDuration(inputPath)
         sizex,sizey = maker.getSizeXY(inputPath)
+
     return fps,duration,sizex,sizey
 
 def printMetaData(maker):
@@ -82,8 +89,8 @@ btnBrowseFile.pack(fill="y",side="left",padx=1)
 labelFolder = tk.Label(root)
 labelFolder.pack()
 
-labelTargetFormat = tk.Label(root)
-labelTargetFormat.pack()
+labelTargetFormat = tk.Label(root,text="Target File Format")
+labelTargetFormat.place(relx = 0.1,rely=0.45,relwidth= 0.25,relheight=0.05)
 
 btnprintMetadata = tk.Button(root,text="print Metadata",bg="white",fg="black",height="2",width="8",command= lambda : printMetaData(maker))
 btnprintMetadata.pack()
