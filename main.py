@@ -11,9 +11,9 @@ def openFileDialog():
     filename = filedialog.askopenfile(initialdir="/",title="select a file",filetypes=[("All file","*.*")])
     
     try:
-        labelFolder.config(text=filename.name)
+        labelFolder2.config(text=filename.name)
     except:
-        print("Close file dialog without choosing file!!")
+        labelFolder2.config(text="File is not chosen !")
 
 def createGif(maker):
     inputPath = getInputPath()
@@ -26,7 +26,10 @@ def createGif(maker):
             print("Insert target format")
 
     else:
-        maker.convertToTargetFormat(inputPath,targetFormat)
+        try:
+            maker.convertToTargetFormat(inputPath,targetFormat)
+        except FileNotFoundError:
+            print("no file found!")
 
 def getMetaDataDetails(maker):
     inputPath = getInputPath()
@@ -48,7 +51,7 @@ def printMetaData(maker):
         print("Error!!")
 
 def getInputPath():
-    path = labelFolder.cget("text")
+    path = labelFolder2.cget("text")
     print(path)
     return path
 
@@ -70,6 +73,7 @@ root = tk.Tk()
 
 #title the window
 root.title("PyMediaFileConverter")
+root.resizable(0,0)
 
 #create canvas
 canvas = tk.Canvas(root, height=HEIGHT,width=WIDTH)
@@ -82,10 +86,10 @@ frameBrowse.place(relx = 0.4,rely=0.1,relwidth= 0.2,relheight=0.1)
 frameEntry = tk.Frame(root,heigh = 10,width =350 ,bg="white")
 frameEntry.place(relx = 0.1,rely=0.7,relwidth= 0.8,relheight=0.05)
 
-frameDetails = tk.Frame(root,height= 100,width=100,bg="blue")
+frameDetails = tk.Frame(root,height= 100,width=100,bg ="#B50A16", borderwidth =2,)
 frameDetails.place(relx = 0.1,rely=0.2,relwidth= 0.8,relheight=0.3)
 
-frameCreate = tk.Frame(root,heigh = 15,width = 350,bg="white")
+frameCreate = tk.Frame(root,heigh = 15,width = 350,)
 frameCreate.place(relx = 0.4,rely=0.79,relwidth= 0.2,relheight=0.1)
 
 #create button
@@ -99,8 +103,12 @@ btnBrowseFile.pack(fill="both",side="left",expand=1)
 # btnprintMetadata.pack()
 
 #label
-labelFolder = tk.Label(frameDetails)
-labelFolder.pack()
+labelFolder1 = tk.Label(frameDetails,text = "Folder path: ")
+labelFolder1.pack(side="left",anchor="nw")
+
+labelFolder2 = tk.Label(frameDetails,text = "")
+labelFolder2.pack(side="left",anchor="nw")
+
 
 labelTargetFormat = tk.Label(root,text="Target File Format")
 labelTargetFormat.place(relx = 0.1,rely=0.6,relwidth= 0.25,relheight=0.05)
