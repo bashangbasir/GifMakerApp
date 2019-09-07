@@ -71,7 +71,7 @@ GUI code
 
 root = tk.Tk()
 
-#title the window
+#title the window and prevent max/min size
 root.title("PyMediaFileConverter")
 root.resizable(0,0)
 
@@ -86,7 +86,7 @@ frameBrowse.place(relx = 0.4,rely=0.1,relwidth= 0.2,relheight=0.1)
 frameEntry = tk.Frame(root,heigh = 10,width =350 ,bg="white")
 frameEntry.place(relx = 0.1,rely=0.7,relwidth= 0.8,relheight=0.05)
 
-frameDetails = tk.Frame(root,height= 100,width=100,bg ="#B50A16", borderwidth =2,)
+frameDetails = tk.Frame(root,height= 100,width=100,bg ="#B50A16", borderwidth =2)
 frameDetails.place(relx = 0.1,rely=0.2,relwidth= 0.8,relheight=0.3)
 
 frameCreate = tk.Frame(root,heigh = 15,width = 350,)
