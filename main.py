@@ -14,17 +14,19 @@ def openFileDialog():
         labelFolder2.config(text=filename.name)
     except:
         labelFolder2.config(text="File is not chosen !")
+        #labelWarning.config(text="No video files selected!!".upper(),fg="red")
 
 def createGif(maker):
     inputPath = getInputPath()
-    targetFormat = getTargetFormat()
+    targetFormat = str(getTargetFormat())
+    targetFormat = targetFormat.lower()
 
-    if inputPath == "" :
-        print("No video files selected!!")
-        
-        if targetFormat == "":
-            print("Insert target format")
-
+    if (inputPath == "" or inputPath == "File is not chosen !") and targetFormat == "":
+        labelWarning.config(text="No video files selected and target file not set!!".upper(),fg="red")
+    elif (inputPath == "" or inputPath == "File is not chosen !"):
+        labelWarning.config(text="No video files selected!!".upper(),fg="red")
+    elif targetFormat == "":
+        labelWarning.config(text="Insert target format (only .gif support".upper(),fg="red")
     else:
         try:
             maker.convertToTargetFormat(inputPath,targetFormat)
@@ -52,12 +54,10 @@ def printMetaData(maker):
 
 def getInputPath():
     path = labelFolder2.cget("text")
-    print(path)
     return path
 
 def getTargetFormat():
     targetFormat = entryTargetFile.get()
-    print(targetFormat)
     return targetFormat
 
 '''
@@ -80,16 +80,16 @@ canvas = tk.Canvas(root, height=HEIGHT,width=WIDTH)
 canvas.pack()
 
 #frame
-frameBrowse = tk.Frame(root,heigh = 15,width = 15,bg="white")
+frameBrowse = tk.Frame(root,height = 15,width = 15,bg="white")
 frameBrowse.place(relx = 0.4,rely=0.1,relwidth= 0.2,relheight=0.1)
 
-frameEntry = tk.Frame(root,heigh = 10,width =350 ,bg="white")
+frameEntry = tk.Frame(root,height = 10,width =350 ,bg="white")
 frameEntry.place(relx = 0.1,rely=0.7,relwidth= 0.8,relheight=0.05)
 
-frameDetails = tk.Frame(root,height= 100,width=100,bg ="#B50A16", borderwidth =2)
+frameDetails = tk.Frame(root,height= 100,width=100, borderwidth =2)
 frameDetails.place(relx = 0.1,rely=0.2,relwidth= 0.8,relheight=0.3)
 
-frameCreate = tk.Frame(root,heigh = 15,width = 350,)
+frameCreate = tk.Frame(root,height = 30,width = 350,)
 frameCreate.place(relx = 0.4,rely=0.79,relwidth= 0.2,relheight=0.1)
 
 #create button
@@ -109,9 +109,11 @@ labelFolder1.pack(side="left",anchor="nw")
 labelFolder2 = tk.Label(frameDetails,text = "")
 labelFolder2.pack(side="left",anchor="nw")
 
-
 labelTargetFormat = tk.Label(root,text="Target File Format")
 labelTargetFormat.place(relx = 0.1,rely=0.6,relwidth= 0.25,relheight=0.05)
+
+labelWarning = tk.Label(root,text="")
+labelWarning.pack(side="bottom")
 
 '''
 TO DO : add label for details(fps,duration,size,fileformat, inputpath)

@@ -6,14 +6,14 @@ class Converter:
 
     def convertToTargetFormat(self, inputPath, targetFormat):
         outputPath = os.path.splitext(inputPath)[0] + targetFormat
+        
         reader = imageio.get_reader(inputPath)
-        fps = reader.get_meta_data()["fps"]    
-
+        fps = 10    
+        
         writer = imageio.get_writer(outputPath,fps=fps)
-
         for frames in reader:
             writer.append_data(frames)
-
+            
         writer.close()
         reader.close()
     
