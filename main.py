@@ -21,23 +21,30 @@ def createGif(maker):
     targetFormat = str(getTargetFormat())
     targetFormat = targetFormat.lower()
 
-    if (inputPath == "" or inputPath == "File is not chosen !") and targetFormat == "":
+    if (inputPath == "" or inputPath == "File is not chosen !") and (targetFormat == "" or targetFormat !=".gif"):
         labelWarning.config(text="No video files selected and target file not set!!".upper(),fg="red")
     elif (inputPath == "" or inputPath == "File is not chosen !"):
         labelWarning.config(text="No video files selected!!".upper(),fg="red")
-    elif targetFormat == "":
-        labelWarning.config(text="Insert target format (only .gif support".upper(),fg="red")
+    elif targetFormat == "" or targetFormat !=".gif":
+        labelWarning.config(text="Insert target format (only .gif support)".upper(),fg="red")
     else:
         try:
             maker.convertToTargetFormat(inputPath,targetFormat)
-        except FileNotFoundError:
-            print("no file found!")
+            labelWarning.config(text="Done!!",fg="green")
+        except:
+            pass
+        # except FileNotFoundError:
+        #     print("no file found!")
+        #     labelWarning.config(text="No video files selected!!".upper(),fg="red")
+        # except ValueError:
+        #     print("incorrect file format!")
+        #     labelWarning.config(text="Incorrect target format (only .gif support)".upper(),fg="red")
 
 def getMetaDataDetails(maker):
-    inputPath = getInputPath()
+    inputPath = getInputPath()  
     if inputPath == "":
         print("No video files selected!!")
-        #popup error message
+    #popup error message
     else:
         fps = maker.getFps(inputPath)
         duration = maker.getDuration(inputPath)
@@ -86,8 +93,14 @@ frameBrowse.place(relx = 0.4,rely=0.1,relwidth= 0.2,relheight=0.1)
 frameEntry = tk.Frame(root,height = 10,width =350 ,bg="white")
 frameEntry.place(relx = 0.1,rely=0.7,relwidth= 0.8,relheight=0.05)
 
-frameDetails = tk.Frame(root,height= 100,width=100, borderwidth =2)
-frameDetails.place(relx = 0.1,rely=0.2,relwidth= 0.8,relheight=0.3)
+frame1 = tk.Frame(root,height= 150,width=100, borderwidth =2,bg="red")
+frame1.place(relx = 0.1,rely=0.2,relwidth= 0.8,relheight=0.4)
+
+frame2 = tk.Frame(frame1,height= 80,width=80, borderwidth =2,bg="green")
+frame2.place(relx = 0,rely=0.2,relwidth= 1,relheight=0.8)
+
+frame3 = tk.Frame(frame2,height= 60,width=60, borderwidth =2,bg="blue")
+frame3.place(relx = 0,rely=0.2,relwidth= 1,relheight=0.8)
 
 frameCreate = tk.Frame(root,height = 30,width = 350,)
 frameCreate.place(relx = 0.4,rely=0.79,relwidth= 0.2,relheight=0.1)
@@ -103,10 +116,10 @@ btnBrowseFile.pack(fill="both",side="left",expand=1)
 # btnprintMetadata.pack()
 
 #label
-labelFolder1 = tk.Label(frameDetails,text = "Folder path: ")
+labelFolder1 = tk.Label(frame1,text = "Folder path: ")
 labelFolder1.pack(side="left",anchor="nw")
 
-labelFolder2 = tk.Label(frameDetails,text = "")
+labelFolder2 = tk.Label(frame1,text = "")
 labelFolder2.pack(side="left",anchor="nw")
 
 labelTargetFormat = tk.Label(root,text="Target File Format")
@@ -114,6 +127,9 @@ labelTargetFormat.place(relx = 0.1,rely=0.6,relwidth= 0.25,relheight=0.05)
 
 labelWarning = tk.Label(root,text="")
 labelWarning.pack(side="bottom")
+
+labelDetails = tk.Label(frame2,text="Details:")
+labelDetails.pack(side="left",anchor="nw")
 
 '''
 TO DO : add label for details(fps,duration,size,fileformat, inputpath)
