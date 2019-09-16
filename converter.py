@@ -17,24 +17,10 @@ class Converter:
         writer.close()
         reader.close()
     
-    def getFps(self, inputPath):
+    def getMetadata(self,inputPath):
         reader = imageio.get_reader(inputPath)
-        fps = reader.get_meta_data()["fps"]
-        reader.close()
-        return fps
-
-    def getDuration(self, inputPath):
-        reader = imageio.get_reader(inputPath)
-        duration = reader.get_meta_data()["duration"]
-        reader.close()
-        return duration
-
-    def getSizeXY(self, inputPath):
-        reader = imageio.get_reader(inputPath)
-        size = reader.get_meta_data()["size"]
-        x_size, y_size = size[0],size[1]
-        reader.close()
-        return x_size, y_size
+        metadata = reader.get_meta_data()
+        return metadata
 
 '''
 def main():
